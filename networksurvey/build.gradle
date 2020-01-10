@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 
+//***********************************************************************************************//
+def IOTHUB_DEVICE_CONNECTION_STRING_ENV_VAR_NAME = project.hasProperty('DeviceConnectionString') ? '"'+project.property('DeviceConnectionString')+'"' : '"Define Device Connection"'
+def STRING='String'
+//***********************************************************************************************//
+
 android {
     compileSdkVersion 29
     defaultConfig {
@@ -9,6 +14,10 @@ android {
         versionCode 8
         versionName "0.0.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        each {
+            //buildTypes.mBuildConfigFields 'DATATYPE','VARIABLE',|"GRADLE VARIABLE|"'
+            buildConfigField STRING, 'DeviceConnectionString', IOTHUB_DEVICE_CONNECTION_STRING_ENV_VAR_NAME
+        }
     }
     buildTypes {
         release {
@@ -19,6 +28,16 @@ android {
     compileOptions {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
+    }
+    packagingOptions {
+        exclude "META-INF/MSFTSIG.SF"
+        exclude "META-INF/MSFTSIG.RSA"
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'thirdpartynotice.txt'
     }
 }
 
@@ -39,6 +58,11 @@ dependencies {
     implementation "com.craxiom:network-survey-messaging:${networkSurveyMessagingVersion}"
 
     implementation "mil.nga.geopackage:geopackage-android:3.3.0"
+
+    implementation ('com.microsoft.azure.sdk.iot:iot-device-client:1.19.0'){
+        exclude module: 'azure-storage'
+    }
+    implementation ('com.microsoft.azure.android:azure-storage-android:2.0.0@aar')
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

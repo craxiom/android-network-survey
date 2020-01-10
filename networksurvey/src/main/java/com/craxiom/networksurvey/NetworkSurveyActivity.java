@@ -37,6 +37,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import com.craxiom.networksurvey.azure.AzureRecordBroker;
 import com.craxiom.networksurvey.fragments.CalculatorFragment;
 import com.craxiom.networksurvey.fragments.NetworkDetailsFragment;
 import com.craxiom.networksurvey.fragments.SectionsPagerAdapter;
@@ -72,6 +73,7 @@ public class NetworkSurveyActivity extends AppCompatActivity implements
     private final AtomicBoolean loggingEnabled = new AtomicBoolean(false);
     private SectionsPagerAdapter sectionsPagerAdapter;
     private SurveyRecordLogger surveyRecordLogger;
+    private AzureRecordBroker azureRecordBroker;
     private GrpcConnectionController grpcConnectionController;
     private IDeviceStatusListener deviceStatusListener;
 
@@ -93,6 +95,8 @@ public class NetworkSurveyActivity extends AppCompatActivity implements
         ViewPager viewPager = findViewById(R.id.viewpager);
 
         grpcConnectionController = new GrpcConnectionController(this);
+        azureRecordBroker = new AzureRecordBroker(getApplicationContext());
+
 
         // Create an adapter that knows which fragment should be shown on each page
         sectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this, grpcConnectionController);
@@ -161,6 +165,7 @@ public class NetworkSurveyActivity extends AppCompatActivity implements
         {
             unregisterDeviceStatusListener(grpcConnectionController);
             unregisterSurveyRecordListener(grpcConnectionController);
+            unregisterSurveyRecordListener(azureRecordBroker);
             grpcConnectionController.unregisterConnectionListener(this);
             grpcConnectionController.disconnectFromGrpcServer();
         }
@@ -189,6 +194,7 @@ public class NetworkSurveyActivity extends AppCompatActivity implements
                         grpcConnectionController.registerConnectionListener(this);
                         registerDeviceStatusListener(grpcConnectionController);
                         registerSurveyRecordListener(grpcConnectionController);
+                        registerSurveyRecordListener(azureRecordBroker);
 
                         toggleLogging();
                     } else
