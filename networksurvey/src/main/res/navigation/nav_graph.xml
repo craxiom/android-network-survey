@@ -22,6 +22,12 @@
     </fragment>
 
     <fragment
+        android:id="@+id/gps_status_fragment"
+        android:name="com.android.gpstest.GpsStatusFragment"
+        android:label="GNSS Status"
+        tools:layout="@layout/gps_status" />
+
+    <fragment
         android:id="@+id/calculator_fragment"
         android:name="com.craxiom.networksurvey.fragments.CalculatorFragment"
         android:label="@string/cellular_calculators"

@@ -6,6 +6,11 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/gps_status_fragment"
+            android:icon="@drawable/gps_map_icon"
+            android:title="GNSS Status" />
+
+        <item
             android:id="@+id/calculator_fragment"
             android:icon="@drawable/ic_calculator"
             android:title="@string/cellular_calculators" />

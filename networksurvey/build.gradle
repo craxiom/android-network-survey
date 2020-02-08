@@ -49,4 +49,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'androidx.annotation:annotation:1.1.0'
+
+    implementation project(":GPSTest-library")
+    // Dependencies for the GPS Test Library
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
 }

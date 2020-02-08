@@ -1,0 +1,2 @@
+configurations.maybeCreate("default")
+artifacts.add("default", file('GPSTest-google-release-3.5.3.aar'))

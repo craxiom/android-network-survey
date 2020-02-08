@@ -1,1 +1,1 @@
-include ':networksurvey'
+include ':networksurvey', ':GPSTest-library'
